@@ -9,59 +9,14 @@ namespace Collections
 {
     internal class Program
     {
-        class Node
-        {
-            public int Data;
-            public Node Next;
-
-            public Node(int data)
-            {
-                Data = data;
-                Next = null;
-            }
-        }
-        static Node AddNumber(Node head, int number)
-        {
-            Node newNode = new Node(number);
-
-            if (head == null)
-            {
-                head = newNode;
-            }
-            else
-            {
-                Node current = head;
-                while (current.Next != null)
-                {
-                    current = current.Next;
-                }
-                current.Next = newNode;
-            }
-
-            return head;
-        }
-
-        static bool LinearSearch(Node head, int searchNumber)
-        {
-            Node current = head;
-            while (current != null)
-            {
-                if (current.Data == searchNumber)
-                {
-                    return true;
-                }
-                current = current.Next;
-            }
-            return false;
-        }
 
         static void Main(string[] args)
         {
-            Node numbers = null;
+            List<int> numbers = new List<int>();
 
             Console.WriteLine("Enter numbers (enter -1 to stop):");
 
-            
+
             while (true)
             {
                 Console.Write("Enter a number: ");
@@ -72,7 +27,22 @@ namespace Collections
 
                 if (int.TryParse(input, out int number))
                 {
-                    numbers = AddNumber(numbers, number);
+
+                    bool exists = false;
+                    foreach (int num in numbers)
+                    {
+                        if (num == number)
+                        {
+                            exists = true;
+                            break;
+                        }
+                    }
+
+
+                    if (!exists)
+                    {
+                        numbers.Add(number);
+                    }
                 }
                 else
                 {
@@ -87,10 +57,18 @@ namespace Collections
                 Console.WriteLine("Invalid input. Please enter a valid integer to search:");
             }
 
-            
-            bool found = LinearSearch(numbers, searchNumber);
 
-            
+            bool found = false;
+            foreach (int num in numbers)
+            {
+                if (num == searchNumber)
+                {
+                    found = true;
+                    break;
+                }
+            }
+
+
             if (found)
             {
                 Console.WriteLine($"The number {searchNumber} is found in the list.");
@@ -99,10 +77,9 @@ namespace Collections
             {
                 Console.WriteLine($"The number {searchNumber} is not found in the list.");
             }
-                Console.ReadLine();
+
         }
     }
-
         
     
 }
