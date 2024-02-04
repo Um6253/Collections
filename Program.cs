@@ -12,73 +12,59 @@ namespace Collections
 
         static void Main(string[] args)
         {
-            List<int> numbers = new List<int>();
+            
+                Stack<int> numbers = new Stack<int>();
 
-            Console.WriteLine("Enter numbers (enter -1 to stop):");
+                Console.WriteLine("Enter numbers (enter -1 to stop):");
 
-
-            while (true)
-            {
-                Console.Write("Enter a number: ");
-                string input = Console.ReadLine();
-
-                if (input == "-1")
-                    break;
-
-                if (int.TryParse(input, out int number))
+                
+                while (true)
                 {
+                    Console.Write("Enter a number: ");
+                    string input = Console.ReadLine();
 
-                    bool exists = false;
-                    foreach (int num in numbers)
+                    if (input == "-1")
+                        break;
+
+                    if (int.TryParse(input, out int number))
                     {
-                        if (num == number)
-                        {
-                            exists = true;
-                            break;
-                        }
+                        numbers.Push(number);
                     }
-
-
-                    if (!exists)
+                    else
                     {
-                        numbers.Add(number);
+                        Console.WriteLine("Invalid input. Please enter a valid integer.");
                     }
+                }
+
+                Console.WriteLine("\nEnter the number to search:");
+                int searchNumber;
+                while (!int.TryParse(Console.ReadLine(), out searchNumber))
+                {
+                    Console.WriteLine("Invalid input. Please enter a valid integer to search:");
+                }
+
+                
+                bool found = false;
+                foreach (int num in numbers)
+                {
+                    if (num == searchNumber)
+                    {
+                        found = true;
+                        break;
+                    }
+                }
+
+               
+                if (found)
+                {
+                    Console.WriteLine($"The number {searchNumber} is found in the stack.");
                 }
                 else
                 {
-                    Console.WriteLine("Invalid input. Please enter a valid integer.");
+                    Console.WriteLine($"The number {searchNumber} is not found in the stack.");
                 }
+
             }
-
-            Console.WriteLine("\nEnter the number to search:");
-            int searchNumber;
-            while (!int.TryParse(Console.ReadLine(), out searchNumber))
-            {
-                Console.WriteLine("Invalid input. Please enter a valid integer to search:");
-            }
-
-
-            bool found = false;
-            foreach (int num in numbers)
-            {
-                if (num == searchNumber)
-                {
-                    found = true;
-                    break;
-                }
-            }
-
-
-            if (found)
-            {
-                Console.WriteLine($"The number {searchNumber} is found in the list.");
-            }
-            else
-            {
-                Console.WriteLine($"The number {searchNumber} is not found in the list.");
-            }
-
-        }
     }
         
     
