@@ -1,0 +1,25 @@
+Data Structures:
+1.Linaer(Continous memory location)
+a.Array
+b.Linked List
+c.Stact
+d.Queue
+
+2.Non Linear(Non-Continous memory location)
+a.Trees
+b.
+
+Algo:--
+1.Brute Force
+2.Divide & Conquer
+3.Greedy
+4.Recursion
+5.Backtracking
+
+Assymtotic notations:--
+1.big(O) -->Worst case
+2.theta -->Average case
+3.Omega -->Best Case
+
+
+

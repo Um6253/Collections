@@ -9,20 +9,14 @@ namespace Collections
 {
     internal class Program
     {
-        static bool LinearSearchWithHashSet(int[] array, int target)
-        {
-            HashSet<int> set = new HashSet<int>(array);
-
-            return set.Contains(target);
-        }
 
         static void Main(string[] args)
         {
-            HashSet<int> numbers = new HashSet<int>();
+
+            Dictionary<int, bool> numbers = new Dictionary<int, bool>();
 
             Console.WriteLine("Enter numbers (enter -1 to stop):");
 
-           
             while (true)
             {
                 Console.Write("Enter a number: ");
@@ -33,7 +27,14 @@ namespace Collections
 
                 if (int.TryParse(input, out int number))
                 {
-                    numbers.Add(number);
+                    if (!numbers.ContainsKey(number))
+                    {
+                        numbers[number] = true;
+                    }
+                    else
+                    {
+                        Console.WriteLine($"Number {number} already exists. Please enter a different number.");
+                    }
                 }
                 else
                 {
@@ -49,17 +50,8 @@ namespace Collections
             }
 
             
-            bool found = false;
-            foreach (int num in numbers)
-            {
-                if (num == searchNumber)
-                {
-                    found = true;
-                    break;
-                }
-            }
+            bool found = numbers.ContainsKey(searchNumber);
 
-            
             if (found)
             {
                 Console.WriteLine($"The number {searchNumber} is found in the set.");
@@ -68,7 +60,9 @@ namespace Collections
             {
                 Console.WriteLine($"The number {searchNumber} is not found in the set.");
             }
-            Console.ReadLine();
+
         }
     }
+        
+    
 }
