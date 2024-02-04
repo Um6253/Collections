@@ -9,20 +9,59 @@ namespace Collections
 {
     internal class Program
     {
-        static bool LinearSearchWithHashSet(int[] array, int target)
+        class Node
         {
-            HashSet<int> set = new HashSet<int>(array);
+            public int Data;
+            public Node Next;
 
-            return set.Contains(target);
+            public Node(int data)
+            {
+                Data = data;
+                Next = null;
+            }
+        }
+        static Node AddNumber(Node head, int number)
+        {
+            Node newNode = new Node(number);
+
+            if (head == null)
+            {
+                head = newNode;
+            }
+            else
+            {
+                Node current = head;
+                while (current.Next != null)
+                {
+                    current = current.Next;
+                }
+                current.Next = newNode;
+            }
+
+            return head;
+        }
+
+        static bool LinearSearch(Node head, int searchNumber)
+        {
+            Node current = head;
+            while (current != null)
+            {
+                if (current.Data == searchNumber)
+                {
+                    return true;
+                }
+                current = current.Next;
+            }
+            return false;
         }
 
         static void Main(string[] args)
         {
-            HashSet<int> numbers = new HashSet<int>();
+            Node numbers = null;
 
             Console.WriteLine("Enter numbers (enter -1 to stop):");
 
-           
+            
             while (true)
             {
                 Console.Write("Enter a number: ");
@@ -33,7 +72,7 @@ namespace Collections
 
                 if (int.TryParse(input, out int number))
                 {
-                    numbers.Add(number);
+                    numbers = AddNumber(numbers, number);
                 }
                 else
                 {
@@ -49,26 +88,21 @@ namespace Collections
             }
 
             
-            bool found = false;
-            foreach (int num in numbers)
-            {
-                if (num == searchNumber)
-                {
-                    found = true;
-                    break;
-                }
-            }
+            bool found = LinearSearch(numbers, searchNumber);
 
             
             if (found)
             {
-                Console.WriteLine($"The number {searchNumber} is found in the set.");
+                Console.WriteLine($"The number {searchNumber} is found in the list.");
             }
             else
             {
-                Console.WriteLine($"The number {searchNumber} is not found in the set.");
+                Console.WriteLine($"The number {searchNumber} is not found in the list.");
             }
-            Console.ReadLine();
+                Console.ReadLine();
         }
     }
+
+        
+    
 }
