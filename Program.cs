@@ -13,11 +13,10 @@ namespace Collections
         static void Main(string[] args)
         {
 
-            Queue<int> numbers = new Queue<int>();
+            Dictionary<int, bool> numbers = new Dictionary<int, bool>();
 
             Console.WriteLine("Enter numbers (enter -1 to stop):");
 
-            
             while (true)
             {
                 Console.Write("Enter a number: ");
@@ -28,7 +27,14 @@ namespace Collections
 
                 if (int.TryParse(input, out int number))
                 {
-                    numbers.Enqueue(number);
+                    if (!numbers.ContainsKey(number))
+                    {
+                        numbers[number] = true;
+                    }
+                    else
+                    {
+                        Console.WriteLine($"Number {number} already exists. Please enter a different number.");
+                    }
                 }
                 else
                 {
@@ -44,27 +50,15 @@ namespace Collections
             }
 
             
-            bool found = false;
-            int count = numbers.Count;
-            for (int i = 0; i < count; i++)
-            {
-                int num = numbers.Dequeue();
-                if (num == searchNumber)
-                {
-                    found = true;
-                    break;
-                }
-                numbers.Enqueue(num);
-            }
+            bool found = numbers.ContainsKey(searchNumber);
 
-            
             if (found)
             {
-                Console.WriteLine($"The number {searchNumber} is found in the queue.");
+                Console.WriteLine($"The number {searchNumber} is found in the set.");
             }
             else
             {
-                Console.WriteLine($"The number {searchNumber} is not found in the queue.");
+                Console.WriteLine($"The number {searchNumber} is not found in the set.");
             }
 
         }
